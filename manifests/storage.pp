@@ -16,12 +16,12 @@ class openstack_repos::storage (
 
     yumrepo { 'glusterfs-epel':
       descr               => 'GlusterFS is a clustered file-system capable of scaling to several petabytes.',
-      baseurl             => 'http://download.gluster.org/pub/gluster/glusterfs/3.4/3.4.0/EPEL.repo/epel-$releasever/$basearch/',
+      baseurl             => 'http://download.gluster.org/pub/gluster/glusterfs/3.4/3.4.2/EPEL.repo/epel-$releasever/$basearch/',
     }
 
     yumrepo { 'glusterfs-epel-noarch':
       descr               => 'GlusterFS is a clustered file-system capable of scaling to several petabytes.',
-      baseurl             => 'http://download.gluster.org/pub/gluster/glusterfs/3.4/3.4.0/EPEL.repo/epel-$releasever/noarch/',
+      baseurl             => 'http://download.gluster.org/pub/gluster/glusterfs/3.4/3.4.2/EPEL.repo/epel-$releasever/noarch/',
     }
   }
 
