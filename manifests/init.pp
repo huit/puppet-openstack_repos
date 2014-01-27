@@ -29,13 +29,38 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Steve Huff <steve_huff@harvard.edu>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 President and Fellows of Harvard College
 #
-class openstack_repos {
+class openstack_repos (
+  $role,
+  $local_mirrors = $openstack_repos::params::local_mirrors,
+) inherits openstack_repos::params {
 
+  case $::osfamily {
+    'RedHat': {}
+    default: {
+      fail("'openstack_repos' only runs on RedHat systems, not '${::osfamily}'.")
+    }
+  }
 
+  validate_re($openstack_repos::role,
+              '^(compute|storage)$',
+              "'${openstack_repos::role}' is not a valid OpenStack role."
+  )
+  validate_bool($openstack_repos::local_mirrors)
+
+  class { 'openstack_repos::common':
+    before        => Class['openstack_repos'],
+    local_mirrors => $openstack_repos::local_mirrors,
+  }
+
+  class { "openstack_repos::${openstack_repos::role}":
+    require       => Class['openstack_repos::common'],
+    before        => Class['openstack_repos'],
+    local_mirrors => $openstack_repos::local_mirrors,
+  }
 }
