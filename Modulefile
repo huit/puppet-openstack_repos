@@ -9,3 +9,4 @@ project_page 'UNKNOWN'
 
 ## Add dependencies, if any:
 dependency 'puppetlabs/stdlib', '>= 3.2.0'
+dependency 'stahnma/epel', '>= 0.0.6'
