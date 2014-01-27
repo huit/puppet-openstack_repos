@@ -1,0 +1,4 @@
+[submodule "vagrant"]
+	path = vagrant
+	url = https://github.com/huit/vagrant-generic.git
+	branch = openstack_repos
