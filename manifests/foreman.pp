@@ -11,7 +11,7 @@ class openstack_repos::foreman (
   #   Yumrepo <<| name == 'foreman' |>>
   #   Yumrepo <<| name == 'foreman-plugins' |>>
 
-  #   Package['foreman-release'] ~> Yumrepo['foreman'] -> Yumrepo['foreman-plugins']
+  #   Package['foreman-release'] ~> Yumrepo['foreman'] ~> Yumrepo['foreman-plugins']
   # }
 
   # package { 'foreman-release':
@@ -19,7 +19,7 @@ class openstack_repos::foreman (
   #     true    => 'absent',
   #     default => 'present',
   #   },
-  #   provider => 'yum',
+  #   provider => 'rpm',
   #   source   => 'http://yum.theforeman.org/releases/1.4/el6/x86_64/foreman-release.rpm',
   # }
 

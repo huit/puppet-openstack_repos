@@ -23,7 +23,7 @@ class openstack_repos::common (
         true    => 'absent',
         default => 'present',
       },
-      provider => 'yum',
+      provider => 'rpm',
       source   => 'http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm',
     }
   }
@@ -40,7 +40,7 @@ class openstack_repos::common (
         true    => 'absent',
         default => 'present',
       },
-      provider => 'yum',
+      provider => 'rpm',
       source   => 'http://repos.fedorapeople.org/repos/openstack/openstack-havana/rdo-release-havana-7.noarch.rpm',
     }
   }
