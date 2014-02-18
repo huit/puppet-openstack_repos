@@ -48,7 +48,7 @@ class openstack_repos (
   }
 
   validate_re($openstack_repos::role,
-              '^(compute|storage)$',
+              '^(compute|storage|foreman)$',
               "'${openstack_repos::role}' is not a valid OpenStack role."
   )
   validate_bool($openstack_repos::local_mirrors)
