@@ -10,23 +10,25 @@ class openstack_repos::common (
     enabled => 0,
   }
 
-  # Puppet Labs
-  if $openstack_repos::common::local_mirrors {
-    Yumrepo <<| name == 'puppetlabs' |>>
-    Yumrepo <<| name == 'puppetlabs-dependencies' |>>
+  # also provided by RDO
+  #
+  # # Puppet Labs
+  # if $openstack_repos::common::local_mirrors {
+  #   Yumrepo <<| name == 'puppetlabs' |>>
+  #   Yumrepo <<| name == 'puppetlabs-dependencies' |>>
 
-    Package['puppetlabs-release'] ~> Yumrepo['puppetlabs'] ~> Yumrepo['puppetlabs-dependencies']
-  }
-  else {
-    package { 'puppetlabs-release':
-      ensure   => $openstack_repos::common::local_mirrors ? {
-        true    => 'absent',
-        default => 'present',
-      },
-      provider => 'rpm',
-      source   => 'http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm',
-    }
-  }
+  #   Package['puppetlabs-release'] ~> Yumrepo['puppetlabs'] ~> Yumrepo['puppetlabs-dependencies']
+  # }
+  # else {
+  #   package { 'puppetlabs-release':
+  #     ensure   => $openstack_repos::common::local_mirrors ? {
+  #       true    => 'absent',
+  #       default => 'present',
+  #     },
+  #     provider => 'rpm',
+  #     source   => 'http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm',
+  #   }
+  # }
 
   # RDO
   if $openstack_repos::common::local_mirrors {
