@@ -5,20 +5,22 @@ class openstack_repos::foreman (
   $local_mirrors,
 ) {
 
-  if $openstack_repos::foreman::local_mirrors {
-    Yumrepo <<| name == 'foreman' |>>
-    Yumrepo <<| name == 'foreman-plugins' |>>
+  # foreman is provided by RDO
+  #
+  # if $openstack_repos::foreman::local_mirrors {
+  #   Yumrepo <<| name == 'foreman' |>>
+  #   Yumrepo <<| name == 'foreman-plugins' |>>
 
-    Package['foreman-release'] ~> Yumrepo['foreman'] -> Yumrepo['foreman-plugins']
-  }
+  #   Package['foreman-release'] ~> Yumrepo['foreman'] -> Yumrepo['foreman-plugins']
+  # }
 
-  package { 'foreman-release':
-    ensure   => $openstack_repos::foreman::local_mirrors ? {
-      true    => 'absent',
-      default => 'present',
-    },
-    provider => 'yum',
-    source   => 'http://yum.theforeman.org/releases/1.4/el6/x86_64/foreman-release.rpm',
-  }
+  # package { 'foreman-release':
+  #   ensure   => $openstack_repos::foreman::local_mirrors ? {
+  #     true    => 'absent',
+  #     default => 'present',
+  #   },
+  #   provider => 'yum',
+  #   source   => 'http://yum.theforeman.org/releases/1.4/el6/x86_64/foreman-release.rpm',
+  # }
 
 } # Class:: openstack_repos::foreman
