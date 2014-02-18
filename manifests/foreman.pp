@@ -6,7 +6,10 @@ class openstack_repos::foreman (
 ) {
 
   if $openstack_repos::foreman::local_mirrors {
-    realize(Yumrepo['foreman'])
+    Yumrepo <<| name == 'foreman' |>>
+    Yumrepo <<| name == 'foreman-plugins' |>>
+
+    Package['foreman-release'] ~> Yumrepo['foreman'] -> Yumrepo['foreman-plugins']
   }
 
   package { 'foreman-release':
@@ -15,7 +18,7 @@ class openstack_repos::foreman (
       default => 'present',
     },
     provider => 'rpm',
-    source   => 'http://yum.theforeman.org/releases/1.3/el6/x86_64/foreman-release.rpm',
+    source   => 'http://yum.theforeman.org/releases/1.4/el6/x86_64/foreman-release.rpm',
   }
 
 } # Class:: openstack_repos::foreman
