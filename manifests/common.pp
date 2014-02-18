@@ -11,14 +11,18 @@ class openstack_repos::common (
   }
 
   if $openstack_repos::common::local_mirrors {
-    realize(Yumrepo['rdo-havana'])
+    Yumrepo <<| name == 'rdo-havana' |>>
+
+    Package['rdo-release-havana'] ~> Yumrepo['rdo-havana']
   }
   else {
-    yumrepo { 'rdo-havana':
-      descr               => 'RDO Havana',
-      baseurl             => 'http://repos.fedorapeople.org/repos/openstack/openstack-havana/epel-$releasever/',
-      enabled             => 1,
-      gpgcheck            => 0,
+    package { 'rdo-release-havana':
+      ensure   => $openstack_repos::common::local_mirrors ? {
+        true    => 'absent',
+        default => 'present',
+      },
+      provider => 'yum',
+      source   => 'http://repos.fedorapeople.org/repos/openstack/openstack-havana/rdo-release-havana-7.noarch.rpm',
     }
   }
 

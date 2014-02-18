@@ -17,7 +17,7 @@ class openstack_repos::foreman (
       true    => 'absent',
       default => 'present',
     },
-    provider => 'rpm',
+    provider => 'yum',
     source   => 'http://yum.theforeman.org/releases/1.4/el6/x86_64/foreman-release.rpm',
   }
 
